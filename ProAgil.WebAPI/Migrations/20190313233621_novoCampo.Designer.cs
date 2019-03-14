@@ -8,8 +8,8 @@ using ProAgil.WebAPI.Data;
 namespace ProAgil.WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190312002554_novo_campo_evento")]
-    partial class novo_campo_evento
+    [Migration("20190313233621_novoCampo")]
+    partial class novoCampo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
