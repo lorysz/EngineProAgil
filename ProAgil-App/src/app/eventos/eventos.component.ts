@@ -4,7 +4,10 @@ import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
+import { ToastrService  } from 'ngx-toastr';
+
 defineLocale('pt-br', ptBrLocale);
+
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
@@ -26,7 +29,8 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private fb: FormBuilder,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private toastr: ToastrService
   ) {
     this.localeService.use('pt-br');
   }
@@ -99,7 +103,9 @@ export class EventosComponent implements OnInit {
           console.log(novoEvento);
           template.hide();
           this.getEventos();
+          this.toastr.success('Inserido com sucesso.');
         }, error => {
+          this.toastr.error(`Erro ao inserir: ${error}`);
           console.log(error);
         });
       } else {
@@ -109,7 +115,9 @@ export class EventosComponent implements OnInit {
           console.log(novoEvento);
           template.hide();
           this.getEventos();
+          this.toastr.success('Editado com sucesso.');
         }, error => {
+          this.toastr.error(`Erro ao editar: ${error}`);
           console.log(error);
         });
       }
@@ -136,7 +144,9 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
+          this.toastr.success('Deletado com sucesso.');
         }, error => {
+          this.toastr.error('Erro ao tentar deletar.');
           console.log(error);
         }
     );
