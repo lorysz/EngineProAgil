@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule, BsDropdownModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
 import { TituloComponent } from './_shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
    declarations: [
@@ -28,8 +32,11 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
       PalestrantesComponent,
       DashboardComponent,
       ContatosComponent,
-      DateTimeFormatPipePipe,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent,
+      DateTimeFormatPipePipe
    ],
    imports: [
       BrowserModule,
@@ -38,14 +45,23 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       BrowserAnimationsModule,
-      ToastrModule.forRoot(),
+      ToastrModule.forRoot({
+         timeOut: 3000,
+         preventDuplicates: true,
+         progressBar: true
+      }),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule
    ],
    providers: [
-      EventoService
+      EventoService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: AuthInterceptor,
+         multi: true
+      }
    ],
    bootstrap: [
       AppComponent

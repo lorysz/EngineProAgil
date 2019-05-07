@@ -38,13 +38,13 @@ namespace ProAgil.WebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetUser")]
+        [HttpGet("getuser")]
         public async Task<IActionResult> GetUser()
         {
             return Ok(new UserDto());
         }
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserDto userDto)
         {
@@ -68,7 +68,7 @@ namespace ProAgil.WebAPI.Controllers
             } 
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginDto userLogin)
         {
